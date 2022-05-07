@@ -1,5 +1,7 @@
 import {Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { ExclusionMetadata } from "typeorm/metadata/ExclusionMetadata";
 import { v4 as uuid } from "uuid";
+import { Exclude } from "class-transformer";
 
 @Entity("users")
 class User {
@@ -16,11 +18,16 @@ email: string;
 @Column()
 admin: boolean;
 
+//https://github.com/typestack/class-transformer
+@Exclude()
+@Column()
+password: string;
+
 @CreateDateColumn()
 create_at: Date;
 
 @UpdateDateColumn()
-updated: Date;
+updated_at: Date;
 
 constructor() {
   if(!this.id) {
